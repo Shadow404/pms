@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="lib/html5shiv.js"></script>
+    <script type="text/javascript" src="lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="statics/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="statics/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="statics/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="statics/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>业主管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 业主管理 <span class="c-gray en">&gt;</span> 业主列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a class="btn btn-primary radius" data-title=" " data-href="" onclick="add_owner('添加业主','/addOwner')" href="javascript:;void(0)"><i class="Hui-iconfont">&#xe600;</i> 添加业主</a></span> <span class="r">共有数据：<strong>[[${size}]]</strong> 条</span> </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+            <thead>
+            <tr class="text-c">
+                <th width="80">姓名</th>
+                <th width="80">电话号码</th>
+                <th width="80">性别</th>
+                <th width="75">拥有房产</th>
+                <th width="75">缴费记录</th>
+                <th width="120">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c" th:each="owner : ${owners}">
+                <td class="text-l" th:text="${owner.getOwnerName()}"></td>
+                <td th:text="${owner.getOwnerPhone()}"></td>
+                <td th:text="${owner.getOwnerSex()}"></td>
+                <td><a href="javascript:" th:onclick="roomHas('房屋详情','[[${owner.getOwnerId()}]]')">房屋详情</a></td>
+                <td><a href="javascript:" th:onclick="payNote('缴费记录','[[${owner.getOwnerId()}]]')">缴费记录</a></td>
+                <td class="f-14 td-manage" >
+                    <a style="text-decoration:none"  href="javascript:;" th:onclick="pay_add('添加缴费单','[[${owner.getOwnerId()}]]')" title="添加缴费单"><i class="Hui-iconfont">&#xe687;</i></a>
+                    <a style="text-decoration:none"  th:onclick="ownerAddParking('添加车位','[[${owner.getOwnerId()}]]');"  href="javascript:;" title="选择车位"><i class="Hui-iconfont">&#xe669;</i></a>
+                    <a style="text-decoration:none"  href="javascript:;" th:onclick="delOwner('删除账号','[[${owner.getOwnerId()}]]')" title="删除账号"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="statics/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="statics/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript"  th:inline="none">
+
+    $('.table-sort').dataTable({
+        "aaSorting": [[ 0, "asc" ]],//默认第几个排序
+        "bStateSave": true,//状态保存
+        "pading":false,
+        "aoColumnDefs": [
+
+            // {"bVisible": false, "aTargets": [ 6,7 ]} ,//控制列的隐藏显示
+            {"orderable":false,"aTargets":[5]}// 不参与排序的列
+        ]
+    });
+    /*查看详情*/
+    function roomHas(title,ownerId) {
+        layer.open({
+            type: 2,
+            title: title,
+            content: '/roomHas?ownerId='+ownerId,
+            skin: 'layui-layer-rim', //加上边框
+            area: ['1000px', '400px'],
+            end:function () {
+                location.replace(location.href);
+            }
+        });
+    }
+    /*缴费记录*/
+    function payNote(title,ownerId) {
+        layer.open({
+            type: 2,
+            title: title,
+            content: '/payNote?ownerId='+ownerId,
+            skin: 'layui-layer-rim', //加上边框
+            area: ['1000px', '400px'],
+            end:function () {
+                location.replace(location.href);
+            }
+        });
+    }
+    /*添加业主*/
+    function add_owner(title,url) {
+        layer.open({
+            type: 2,
+            title: title,
+            content: url,
+            skin: 'layui-layer-rim', //加上边框
+            area: ['400px', '410px'],
+            end:function () {
+                location.replace(location.href);
+            }
+        });
+    }
+    /!*缴费单添加*!/
+    function pay_add(title,ownerId,w,h){
+        layer.open({
+            type: 2,
+            title: title,
+            content: '/addPay?ownerId='+ownerId,
+
+            skin: 'layui-layer-rim', //加上边框
+            area: ['400px', '410px'],
+            end:function () {
+                location.replace(location.href);
+            }
+        });
+    }
+    function ownerAddParking(title,ownerId) {
+        layer.open({
+            type: 2,
+            title: title,
+            content: '/addOwnerParking?ownerId='+ownerId,
+
+            skin: 'layui-layer-rim', //加上边框
+            area: ['400px', '410px'],
+            end:function () {
+                location.replace(location.href);
+            }
+        });
+    }
+    function delOwner(obj,id){
+        layer.confirm('确认删除吗？',function(index){
+            $.post(
+                'api/delOwner',
+                {"ownerId":id},
+                function(data){
+                    alert(data.message);
+                    location.replace(location.href);
+                },
+
+                'json'
+            );
+        }),
+            function () {
+                time:1000
+            }
+    }
+
+</script>
+</body>
+</html>

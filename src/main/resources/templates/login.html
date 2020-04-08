@@ -1,0 +1,60 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>物业管理系统</title>
+  <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+  <meta name="author" content="Vincent Garreau" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" media="screen" href="login/css/style.css">
+  <link rel="stylesheet" type="text/css" href="login/css/reset.css"/>
+</head>
+<body>
+
+<div id="particles-js">
+<form method="post" action="/doLogin">
+		<div class="login">
+
+			<div class="login-top">
+				物业管理系统
+			</div>
+
+			<div class="login-center clearfix">
+				<div class="login-center-img"><img src="login/img/name.png"/></div>
+				<div class="login-center-input">
+					<input type="text" name="userName" required="required" value="" placeholder="请输入您的用户名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的用户名'"/>
+					<div class="login-center-input-text">用户名</div>
+				</div>
+			</div>
+			<div class="login-center clearfix">
+				<div class="login-center-img"><img src="login/img/password.png"/></div>
+				<div class="login-center-input">
+					<input type="password" name="password"  required="required" value="" placeholder="请输入您的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'"/>
+					<div class="login-center-input-text">密码</div>
+				</div>
+			</div>
+			<button  class="login-button">
+				登录
+			</button>
+		</div>
+	</form>
+		<div class="sk-rotating-plane"></div>
+</div>
+<input hidden="hidden" th:value="${msg}" id="msg">
+<!-- scripts -->
+<script src="login/js/particles.min.js"></script>
+<script src="login/js/app.js"></script>
+<script src="login/js/jquery.js"></script>
+<script type="text/javascript" th:inline="none" th:if="${msg} !=null">
+    var msg=$("#msg").val();
+    $(function () {
+        alert(msg);
+    });
+</script>
+
+
+<div style="text-align:center;">
+
+</div>
+</body>
+</html>
