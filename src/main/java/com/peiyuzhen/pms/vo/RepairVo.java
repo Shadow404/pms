@@ -2,6 +2,7 @@ package com.peiyuzhen.pms.vo;
 
 import com.peiyuzhen.pms.domain.Owner;
 import com.peiyuzhen.pms.domain.Repair;
+import com.peiyuzhen.pms.util.DateUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -37,7 +38,7 @@ public class RepairVo {
         exportRepairVo.setOwnerPhone(this.getOwnerPhone());
         exportRepairVo.setOwnerSex(this.getOwnerSex());
         exportRepairVo.setRepairContent(this.getRepairContent());
-        exportRepairVo.setRepairDay(this.getRepairDay().toString());
+        exportRepairVo.setRepairDay(DateUtil.getTime(this.getRepairDay()));
         exportRepairVo.setDealingMan(this.getDealingMan());
         exportRepairVo.setResult(this.getResult());
         exportRepairVo.setIsDeal(1 == this.getIsDeal()? "已解决":"未解决");

@@ -1,7 +1,6 @@
 package com.peiyuzhen.pms.controller.api;
 
 import com.peiyuzhen.pms.domain.Owner;
-import com.peiyuzhen.pms.domain.Parking;
 import com.peiyuzhen.pms.service.OwnerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

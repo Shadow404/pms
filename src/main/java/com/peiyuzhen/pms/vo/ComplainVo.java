@@ -2,6 +2,7 @@ package com.peiyuzhen.pms.vo;
 
 import com.peiyuzhen.pms.domain.Complain;
 import com.peiyuzhen.pms.domain.Owner;
+import com.peiyuzhen.pms.util.DateUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -37,7 +38,7 @@ public class ComplainVo {
         exportComplainVo.setOwnerPhone(this.getOwnerPhone());
         exportComplainVo.setOwnerSex(this.getOwnerSex());
         exportComplainVo.setComplainContent(this.getComplainContent());
-        exportComplainVo.setComplainDay(this.getComplainDay().toString());
+        exportComplainVo.setComplainDay(DateUtil.getTime(this.getComplainDay()) );
         exportComplainVo.setDealingMan(this.getDealingMan());
         exportComplainVo.setResult(this.getResult());
         exportComplainVo.setIsDeal(1 == this.getIsDeal()? "已解决":"未解决");
