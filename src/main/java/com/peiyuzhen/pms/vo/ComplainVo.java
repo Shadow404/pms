@@ -31,4 +31,17 @@ public class ComplainVo {
         this.result=complain.getResult();
     }
 
+    public ExportComplainVo convertToExportVO() {
+        ExportComplainVo exportComplainVo = new ExportComplainVo();
+        exportComplainVo.setOwnerName(this.getOwnerName());
+        exportComplainVo.setOwnerPhone(this.getOwnerPhone());
+        exportComplainVo.setOwnerSex(this.getOwnerSex());
+        exportComplainVo.setComplainContent(this.getComplainContent());
+        exportComplainVo.setComplainDay(this.getComplainDay().toString());
+        exportComplainVo.setDealingMan(this.getDealingMan());
+        exportComplainVo.setResult(this.getResult());
+        exportComplainVo.setIsDeal(1 == this.getIsDeal()? "已解决":"未解决");
+        return exportComplainVo;
+    }
+
 }

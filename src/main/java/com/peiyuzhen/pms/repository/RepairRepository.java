@@ -16,7 +16,7 @@ public interface RepairRepository extends JpaRepository<Repair,Long> {
     @Modifying
     @Transactional(rollbackFor = Exception.class)
     void updateRepairByRepairId(long repairId, String result, String dealingMan);
-    @Query(nativeQuery = true,value = "SELECT repair_id,owner_name,owner_phone,owner_sex,repair_content,repair_day,dealing_man,result,is_deal FROM repair A LEFT JOIN owner B ON a.owner_id=b.owner_id")
+    @Query(nativeQuery = true,value = "SELECT repair_id,owner_name,owner_phone,owner_sex,repair_content,repair_day,dealing_man,result,is_deal FROM repair A LEFT JOIN owner B ON A.owner_id=B.owner_id")
     List<Map<String, Object>> findAllRepair();
     @Query(nativeQuery = true,value = "select id,dealing_man,owner_id,type,content,day,result,\n" +
             "case is_deal when '1' then '已解决' else '未解决' end as is_deal\n" +

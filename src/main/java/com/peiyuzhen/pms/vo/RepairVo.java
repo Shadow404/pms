@@ -30,17 +30,18 @@ public class RepairVo {
         this.isDeal=repair.getIsDeal();
         this.result=repair.getResult();
     }
-//    public RepairVo(Long repairId,String ownerName,String ownerPhone,String ownerSex,String repairContent,Timestamp repairDay,String dealingMan,String result,int isDeal){
-//        this.repairId=repairId;
-//        this.ownerName=ownerName;
-//        this.ownerPhone=ownerPhone;
-//        this.ownerSex= ownerSex;
-//        this.repairContent=repairContent;
-//        this.repairDay=repairDay;
-//        this.dealingMan=dealingMan;
-//        this.result=result;
-//        this.isDeal=isDeal;
-//
-//    }
+
+    public ExportRepairVo convertToExportVO() {
+        ExportRepairVo exportRepairVo = new ExportRepairVo();
+        exportRepairVo.setOwnerName(this.getOwnerName());
+        exportRepairVo.setOwnerPhone(this.getOwnerPhone());
+        exportRepairVo.setOwnerSex(this.getOwnerSex());
+        exportRepairVo.setRepairContent(this.getRepairContent());
+        exportRepairVo.setRepairDay(this.getRepairDay().toString());
+        exportRepairVo.setDealingMan(this.getDealingMan());
+        exportRepairVo.setResult(this.getResult());
+        exportRepairVo.setIsDeal(1 == this.getIsDeal()? "已解决":"未解决");
+        return exportRepairVo;
+    }
 
 }

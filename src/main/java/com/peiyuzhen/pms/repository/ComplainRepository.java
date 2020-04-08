@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface ComplainRepository extends JpaRepository<Complain,Long> {
 
-    @Query(nativeQuery = true,value = "SELECT complain_id,owner_name,owner_phone,owner_sex,complain_content,complain_day,dealing_man,result,is_deal FROM complain A LEFT JOIN owner B ON a.owner_id=b.owner_id")
+    @Query(nativeQuery = true,value = "SELECT complain_id,owner_name,owner_phone,owner_sex,complain_content,complain_day,dealing_man,result,is_deal FROM complain A LEFT JOIN owner B ON A.owner_id=B.owner_id")
     List<Map<String,Object>> findAllComplain();
 
 
