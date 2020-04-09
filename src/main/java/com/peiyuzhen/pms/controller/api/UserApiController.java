@@ -20,14 +20,24 @@ public class UserApiController {
     @Autowired
     private UserService userService;
     @RequestMapping("/addUser")
-    public String addUser(@RequestParam("userName")String userName, @RequestParam("password")String password){
+    public String addUser(User user){
+        user.setIsDel(0);
+        log.info("{}user",user);
         String message="添加帐号失败！";
         try {
-            userService.addUser(userName,password);
+            userService.addUser(user);
             message="添加帐号成功！";
         }catch (Exception e){
         }
         return message;
+    }
+    @RequestMapping("findUserName")
+    public Map<String,Object> findUserName(@RequestParam String userName){
+        Map<String,Object> map=new HashMap<>();
+        int data=userService.findUserName(userName);
+        log.info("{}data",data);
+        map.put("data",data);
+        return map;
     }
     @RequestMapping("delUser")
     public Map<String,Object> delUser(@RequestParam("userId")String userId){

@@ -18,8 +18,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(String userName, String password) {
-         userRepository.addUser(userName,password);
+    public void addUser(User user) {
+         userRepository.save(user);
     }
 
     @Override
@@ -35,5 +35,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void editUserByUserId(User user) {
          userRepository.editUserByUserId(user.getUserAddr(),user.getUserPhone(),user.getUserId().toString());
+    }
+
+    @Override
+    public int findUserName(String userName) {
+        return userRepository.findUserName(userName);
     }
 }

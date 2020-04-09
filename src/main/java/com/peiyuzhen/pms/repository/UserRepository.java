@@ -11,14 +11,10 @@ import java.util.List;
 
 @Repository
 public interface UserRepository  extends JpaRepository<User,Long> {
-    @Query(nativeQuery = true,value = "select * from user where user_name=?1")
+    @Query(nativeQuery = true,value = "select * from user where user_name=?1 and is_del=0")
     User findByUserName(String userName);
     @Query(nativeQuery = true,value = "select * from user where is_del=0 order  by user_id")
     List<User> findAll();
-    @Query(nativeQuery = true,value = "insert into user(user_name,user_pass_word) values (?1,?2)")
-    @Modifying
-    @Transactional
-    void addUser(String userName, String password);
     @Query(nativeQuery = true,value = "update user set is_del=1 where user_id=?1")
     @Modifying
     @Transactional
@@ -29,4 +25,6 @@ public interface UserRepository  extends JpaRepository<User,Long> {
     @Modifying
     @Transactional
     void editUserByUserId(String userAddr, String userPhone, String userId);
+    @Query(nativeQuery = true,value = "select count(1) from user where is_del=0 and user_name=?1")
+    int findUserName(String userName);
 }

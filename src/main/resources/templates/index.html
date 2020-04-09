@@ -32,8 +32,11 @@
 
 		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 			<ul class="cl">
-				<li th:if="${loginUser.getIsSuperAdmin()} eq 1">超级管理员</li>
-				<li th:if="${loginUser.getIsSuperAdmin()} eq 0">管理员</li>
+				<li th:if="${loginUser.getUserPower()} eq 1">超级管理员</li>
+				<li th:if="${loginUser.getUserPower()} eq 2">维修管理员</li>
+				<li th:if="${loginUser.getUserPower()} eq 3">缴费管理员</li>
+				<li th:if="${loginUser.getUserPower()} eq 4">投诉管理员</li>
+				<li th:if="${loginUser.getUserPower()} eq 5">停车场管理员</li>
 				<li class="dropDown dropDown_hover">
 					<a href="#" class="dropDown_A">[[${loginUser.getUserName()}]]<i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
@@ -58,7 +61,7 @@
 </div>
 </header>
 <aside class="Hui-aside">
-	<div class="menu_dropdown bk_2">
+	<div class="menu_dropdown bk_2" >
 		<dl id="menu-article">
 			<dt><i class="Hui-iconfont">&#xe616;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -68,7 +71,7 @@
 			</ul>
 		</dd>
 	</dl>
-		<dl id="menu-picture">
+		<dl id="menu-picture" th:if="${loginUser.getUserPower() eq 1 ||loginUser.getUserPower() eq 5}">
 			<dt><i class="Hui-iconfont">&#xe613;</i> 停车位管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
@@ -76,7 +79,7 @@
 			</ul>
 		</dd>
 	</dl>
-		<dl id="menu-product">
+		<dl id="menu-product" th:if="${loginUser.getUserPower() eq 1 ||loginUser.getUserPower() eq 4}">
 			<dt><i class="Hui-iconfont">&#xe620;</i> 投诉管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
@@ -86,7 +89,7 @@
 			</ul>
 		</dd>
 	</dl>
-		<dl id="menu-order">
+		<dl id="menu-order" th:if="${loginUser.getUserPower() eq 1 ||loginUser.getUserPower() eq 5 ||loginUser.getUserPower() eq 3}">
 			<dt><i class="Hui-iconfont">&#xe687;</i> 缴费信息管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
@@ -96,7 +99,7 @@
 				</ul>
 			</dd>
 		</dl>
-		<dl id="menu-member">
+		<dl id="menu-member" th:if="${loginUser.getUserPower() eq 1 ||loginUser.getUserPower() eq 2}">
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 报修管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>

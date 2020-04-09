@@ -30,7 +30,7 @@ public class IndexController {
         User user=userRepository.findByUserName(userName);
         log.info("{}userNmae {} {}",userName,password,user);
         String msg="登录失败！";
-        if(user.getUserPassWord().equals(password)&&user!=null){
+        if(user!=null&&user.getUserPassWord().equals(password)){
             user.setIp(request.getLocalAddr());
             userRepository.save(user);
             request.getSession().setAttribute("user",user);

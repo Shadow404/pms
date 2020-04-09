@@ -24,7 +24,7 @@ public class User implements Serializable {
     @Column
     private String ip;
     @Column(columnDefinition = "int default 0")
-    private int isSuperAdmin;//1是最高管理员0是普通
+    private int userPower;//1是最高管理员0是普通
     @Column(columnDefinition = "int default 0")
     private Integer isDel;//1删除 0
 }
